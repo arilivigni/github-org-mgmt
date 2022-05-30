@@ -55,7 +55,6 @@ The payload is defined in `JSON` format and will be stored in the pipeline as a 
 
 #### Defining the payload
 
-```json
 #### Defining the payload
 
 ```json
