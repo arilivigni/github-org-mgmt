@@ -176,7 +176,7 @@ docker build -t jenkins:jcasc .
 
 ### Run Jenkins Container Image
 ```
-docker run --name jenkins --rm -p 8080:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password jenkins:jcasc
+docker run --name jenkins --rm -p 8080:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=<password> jenkins:jcasc
 ```
 
 You can open a browser and go to `http://server_ip:8080` to login and start using Jenkins
