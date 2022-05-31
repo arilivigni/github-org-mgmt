@@ -171,12 +171,12 @@ At this point we have the plugins and Jenkins configuration we want so we can bu
 
 ### Build Jenkins Container Image
 ```
-docker build -t jenkins:jcasc .
+docker build -t jenkins:github .
 ```
 
 ### Run Jenkins Container Image
 ```
-docker run --name jenkins --rm -p 8080:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=<password> jenkins:jcasc
+docker run --name jenkins --rm -p 8080:8080 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=<password> jenkins:github
 ```
 
 You can open a browser and go to `http://server_ip:8080` to login and start using Jenkins
