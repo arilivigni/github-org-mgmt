@@ -25,23 +25,68 @@ node {
   ])
 
   def githubPayload = """{
-    "required_status_checks": {
-        "required_approving_review_count": 2,
-        "strict": true,
-        "contexts": [
-            "continuous-integration/jenkins/branch"
+    "required_status_checks":{
+        "strict":true,
+        "contexts":[
+          "continuous-integration/jenkins/branch"
         ]
+    },
+    "enforce_admins":true,
+    "required_pull_request_reviews":{
+        "dismissal_restrictions":{
+          "users":[
+              "arilivigni"
+          ],
+          "teams":[
+              "fantastic-four"
+          ]
+        },
+        "dismiss_stale_reviews":true,
+        "require_code_owner_reviews":true,
+        "required_approving_review_count":2,
+        "bypass_pull_request_allowances":{
+          "users":[
+              "arilivigni"
+          ],
+          "teams":[
+              "fantastic-four"
+          ]
+        }
+    },
+    "restrictions":{
+        "users":[
+          "arilivigni"
+        ],
+        "teams":[
+          "fantastic-four"
+        ],
+        "apps":[
+          "super-ci"
+        ]
+    },
+    "required_linear_history":true,
+    "allow_force_pushes":true,
+    "allow_deletions":true,
+    "block_creations":true,
+    "required_conversation_resolution":true
   }"""
 
   stage("Apply Branch-Protection-Rules") {
     if(env.branch_name && "${branch_name}" == "${master_branch}") {
         withCredentials([string(credentialsId: 'githubToken', variable: 'githubToken')]) {
+          echo "organization: ${organization}"
+          echo "repository: ${repository}"
+          echo "branch_name: ${branch_name}"
+          echo "master_branch: ${master_branch}"
+          echo "ref_type: ${ref_type}"
+          echo "url: ${repository_url}/branches/${repository_default_branch}/protection"
+          echo "${githubPayload}"          
           httpRequest(
               contentType: 'APPLICATION_JSON',
               consoleLogResponseBody: true,
               customHeaders: [
                   [maskValue: true, name: 'Authorization', value: "token ${githubToken}"],
-                  [name: 'Accept', value: 'application/vnd.github.loki-preview']],
+                  [name: 'Accept', value: 'application/vnd.github.v3+json']],
               httpMode: 'PUT',
               ignoreSslErrors: true,
               requestBody: githubPayload,

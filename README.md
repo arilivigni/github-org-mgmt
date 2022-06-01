@@ -200,11 +200,49 @@ The payload is defined in `JSON` format and will be stored in the pipeline as a 
 
 ```json
 {
-  "required_status_checks": {
-    "required_approving_review_count": 2,
-    "strict": true,
-    "contexts": [
-        "continuous-integration/jenkins/branch"
-    ]
-  }
+   "required_status_checks":{
+      "strict":true,
+      "contexts":[
+         "continuous-integration/jenkins/branch"
+      ]
+   },
+   "enforce_admins":true,
+   "required_pull_request_reviews":{
+      "dismissal_restrictions":{
+         "users":[
+            "arilivigni"
+         ],
+         "teams":[
+            "fantastic-four"
+         ]
+      },
+      "dismiss_stale_reviews":true,
+      "require_code_owner_reviews":true,
+      "required_approving_review_count":2,
+      "bypass_pull_request_allowances":{
+         "users":[
+            "arilivigni"
+         ],
+         "teams":[
+            "fantastic-four"
+         ]
+      }
+   },
+   "restrictions":{
+      "users":[
+         "arilivigni"
+      ],
+      "teams":[
+         "fantastic-four"
+      ],
+      "apps":[
+         "super-ci"
+      ]
+   },
+   "required_linear_history":true,
+   "allow_force_pushes":true,
+   "allow_deletions":true,
+   "block_creations":true,
+   "required_conversation_resolution":true
+}
 ```
