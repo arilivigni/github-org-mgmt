@@ -24,7 +24,8 @@ node {
     ])
   ])
 
-  def githubPayload = """{
+  // Define the update branch protection rules payload to send to GitHub.
+  def githubUpdateBranchProtPayload = """{
     "required_status_checks":{
         "strict":true,
         "contexts":[
@@ -70,17 +71,26 @@ node {
     "block_creations":true,
     "required_conversation_resolution":true
   }"""
+  
+  // Define the create issue payload to send to GitHub.
+  def githubCreateIssuePayload = """{
+    "title":"Applied branch protection rules",
+    "body":"@arilivigni we applied the branch protection rules, Protect the `main` branch, Enforce admins, Require CODEOWNERS review, Define repository owners.",
+    "assignees":[
+        "arilivigni"
+    ]
+  }"""
 
-  stage("Apply Branch-Protection-Rules") {
+  stage("Update Branch-Protection-Rules") {
     if(env.branch_name && "${branch_name}" == "${master_branch}") {
-        withCredentials([string(credentialsId: 'githubToken', variable: 'githubToken')]) {
-          echo "organization: ${organization}"
-          echo "repository: ${repository}"
-          echo "branch_name: ${branch_name}"
-          echo "master_branch: ${master_branch}"
-          echo "ref_type: ${ref_type}"
-          echo "url: ${repository_url}/branches/${repository_default_branch}/protection"
-          echo "${githubPayload}"          
+        echo "organization: ${organization}"
+        echo "repository: ${repository}"
+        echo "branch_name: ${branch_name}"
+        echo "master_branch: ${master_branch}"
+        echo "ref_type: ${ref_type}"
+        echo "url: ${repository_url}/branches/${repository_default_branch}/protection"
+        echo "${githubUpdateBranchProtPayload}"
+        withCredentials([string(credentialsId: 'githubToken', variable: 'githubToken')]) {        
           httpRequest(
               contentType: 'APPLICATION_JSON',
               consoleLogResponseBody: true,
@@ -89,12 +99,33 @@ node {
                   [name: 'Accept', value: 'application/vnd.github.v3+json']],
               httpMode: 'PUT',
               ignoreSslErrors: true,
-              requestBody: githubPayload,
+              requestBody: githubUpdateBranchProtPayload,
               responseHandle: 'NONE',
               url: "${repository_url}/branches/${repository_default_branch}/protection")
         }
     } else {
-        sh(name: "Skip", script: 'echo "Move along, nothing to see here"')
+        sh(name: "Skip", script: 'echo "This is not the Github event you are looking for"')
     }
   }
+
+  stage("Create Issue for Branch-Protection-Rules") {
+    if(env.branch_name && "${branch_name}" == "${master_branch}") {
+        echo "${githubCreateIssuePayload}"  
+        withCredentials([string(credentialsId: 'githubToken', variable: 'githubToken')]) {        
+          httpRequest(
+              contentType: 'APPLICATION_JSON',
+              consoleLogResponseBody: true,
+              customHeaders: [
+                  [maskValue: true, name: 'Authorization', value: "token ${githubToken}"],
+                  [name: 'Accept', value: 'application/vnd.github.v3+json']],
+              httpMode: 'POST',
+              ignoreSslErrors: true,
+              requestBody: githubCreateIssuePayload,
+              responseHandle: 'NONE',
+              url: "${repository_url}/issues")
+        }
+    } else {
+        sh(name: "Skip", script: 'echo "This is not the Github event you are looking for"')
+    }
+  }  
 }

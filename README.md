@@ -183,20 +183,16 @@ You can open a browser and go to `http://server_ip:8080` to login and start usin
 
 ## Jenkinsfile - Webhook Trigger and apply branch protection rules
 
-### Defining our actions
+### Defining our update branch protection rule actions
 We'll be defining our _payload_ to execute the following actions against the **GitHub REST API**.
 
-- Protect the `main` branch, which may or may not be named _main_. In this demo, it is named _main_
-- `"required_approving_review_count": 2`
-- `"strict": true`
-- ```
-  "contexts": [
-      "continuous-integration/jenkins/branch"
-    ]
-  ```
-The payload is defined in `JSON` format and will be stored in the pipeline as a _variable_
+- Protect the `main` branch
+- Enforce admins
+- Require CODEOWNERS review
+- Define repository owners
+- Define repository team ownership The payload is defined in JSON format and will be stored in the pipeline as a variable
 
-### Defining the payload
+### Defining the update branch protection rule payload
 
 ```json
 {
@@ -246,3 +242,18 @@ The payload is defined in `JSON` format and will be stored in the pipeline as a 
    "required_conversation_resolution":true
 }
 ```
+### Defining our create issue actions
+We'll be defining our _payload_ to execute the following actions against the **GitHub REST API**.
+
+- Title
+- Enforce admins
+- Require CODEOWNERS review
+- Define repository owners
+- Define repository team ownership The payload is defined in JSON format and will be stored in the pipeline as a variable
+- The payload is defined in `JSON` format and will be stored in the pipeline as a _variable_
+
+### Defining the create issue payload
+
+# References
+
+https://github.com/github/platform-samples/blob/master/hooks/jenkins/master-branch-protect/branch-protect.Jenkinsfile
