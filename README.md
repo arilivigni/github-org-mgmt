@@ -252,11 +252,10 @@ We'll be defining our _payload_ to execute the following actions against the **G
 We'll be defining our _payload_ to execute the following actions against the **GitHub REST API**.
 
 - Title
-- Enforce admins
-- Require CODEOWNERS review
-- Define repository owners
-- Define repository team ownership The payload is defined in JSON format and will be stored in the pipeline as a variable
-- The payload is defined in `JSON` format and will be stored in the pipeline as a _variable_
+- Body
+- Assignee
+
+_Note: there are other options that can be added like milestone and labels_
 
 ### Defining the create issue payload
 ```json
