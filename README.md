@@ -10,7 +10,13 @@
   * [Building and Running the Jenkins Container Image](#building-and-running-the-jenkins-container-image)
     * [Build Jenkins Container Image](#build-jenkins-container-image)
     * [Run Jenkins Container Image](#run-jenkins-container-image)
-- [Jenkinsfile - Webhook Trigger and apply branch protection rules](jenkinsfile-webhook-trigger-branch-protection-rules)
+- [Jenkinsfile - Webhook Trigger and apply branch protection rules](#jenkinsfile-webhook-trigger-branch-protection-rules)
+  * [Defining the update branch protection rule actions](#defining-the-update-branch-protection-rule-actions)
+  * [Defining the update branch protection rule payload](#defining-the-update-branch-protection-rule-payload)
+  * [Defining the create issue actions](#defining-the-create-issue-actions)
+  * [Defining the create issue payload](#defining-the-create-issue-payload)
+- [References](#references)
+
 
 # Overview
 The purpose of this repository is to manage github organizations and currently focused on branch protection rules.
@@ -183,7 +189,7 @@ You can open a browser and go to `http://server_ip:8080` to login and start usin
 
 ## Jenkinsfile - Webhook Trigger and apply branch protection rules
 
-### Defining our update branch protection rule actions
+### Defining the update branch protection rule actions
 We'll be defining our _payload_ to execute the following actions against the **GitHub REST API**.
 
 - Protect the `main` branch
@@ -242,7 +248,7 @@ We'll be defining our _payload_ to execute the following actions against the **G
    "required_conversation_resolution":true
 }
 ```
-### Defining our create issue actions
+### Defining the create issue actions
 We'll be defining our _payload_ to execute the following actions against the **GitHub REST API**.
 
 - Title
@@ -253,7 +259,15 @@ We'll be defining our _payload_ to execute the following actions against the **G
 - The payload is defined in `JSON` format and will be stored in the pipeline as a _variable_
 
 ### Defining the create issue payload
+```json
+{
+  "title":"Applied branch protection rules",
+  "body":"@arilivigni we applied the branch protection rules, Protect the `main` branch, Enforce admins, Require CODEOWNERS review, Define repository owners.",
+  "assignees":[
+      "arilivigni"
+  ]
+}
+```
 
 # References
-
 https://github.com/github/platform-samples/blob/master/hooks/jenkins/master-branch-protect/branch-protect.Jenkinsfile
