@@ -74,7 +74,7 @@ node {
   
   // Define the create issue payload to send to GitHub.
   def githubCreateIssuePayload = """{
-    "title":"Applied branch protection rules",
+    "title":"Applied branch protection rules reference build number: ${BUILD_NUMBER}",
     "body":"@arilivigni we applied the branch protection rules, Protect the `main` branch, Enforce admins, Require CODEOWNERS review, Define repository owners.",
     "assignees":[
         "arilivigni"
