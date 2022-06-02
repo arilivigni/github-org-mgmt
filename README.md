@@ -21,7 +21,7 @@
 # Overview
 The purpose of this repository is to manage github organizations and currently focused on branch protection rules.
 It also contains the building blocks to have infrastructure as code in setting up the Jenkins server to communicate to Github.
-This is accompleshed by deplying Jenkins in a container using Docker plus using the [JCasC](https://www.jenkins.io/projects/jcasc/) (Jenkins Configuration as Code) plugin
+This is accomplished by deploying Jenkins in a container using Docker plus using the [JCasC](https://www.jenkins.io/projects/jcasc/) (Jenkins Configuration as Code) plugin
 so the entire environment can be updated, built, tested, and deployed via Github.
 
 ## Installing Jenkins
