@@ -60,28 +60,38 @@ Copy it into the Docker image
 Run the `install-plugins.sh` script to install the plugins
 First, using your editor, create a new file named `plugins.txt`:
 
-Then, add in the following newline-separated list of plugin names and versions (using the format `<id>:<version>)`:
+Add a newline-separated list of plugin names and versions (using the format `<id>:<version>)` recommended set of plugins is in jenkins/plugins.txt:
 Example:
 ```
+ace-editor:latest
 ant:latest
 antisamy-markup-formatter:latest
+apache-httpcomponents-client-4-api:latest
+authorize-project:latest
+blueocean-commons:latest
+blueocean-core-js:latest
+blueocean-github-pipeline:latest
+blueocean-jwt:latest
+blueocean-pipeline-api-impl:latest
+blueocean-pipeline-scm-api:latest
+blueocean-rest-impl:latest
+blueocean-rest:latest
+blueocean-web:latest
+bootstrap5-api:latest
+bouncycastle-api:latest
+branch-api:latest
 build-timeout:latest
-cloudbees-folder:latest
-configuration-as-code:latest
-credentials-binding:latest
-email-ext:latest
-git:latest
-github-branch-source:latest
-gradle:latest
-ldap:latest
-mailer:latest
-matrix-auth:latest
-pam-auth:latest
-pipeline-github-lib:latest
-pipeline-stage-view:latest
-ssh-slaves:latest
-timestamper:latest
+...
 workflow-aggregator:latest
+workflow-api:latest
+workflow-basic-steps:latest
+workflow-cps:latest
+workflow-durable-task-step:latest
+workflow-job:latest
+workflow-multibranch:latest
+workflow-scm-step:latest
+workflow-step-api:latest
+workflow-support:latest
 ws-cleanup:latest
 ```
 
