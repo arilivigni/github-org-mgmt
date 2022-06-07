@@ -199,6 +199,13 @@ You can open a browser and go to `http://server_ip:8080` to login and start usin
 
 ## Jenkinsfile - Webhook Trigger and apply branch protection rules
 
+  1. login to github account for the organization you want to target to apply branch rules
+  2. Go to Settings --> Webhooks --> Add Webhook
+  3. Payload URL: `https://<server_ip>/generic-webhook-trigger/invoke?token=<token>`
+  4. Content type: `application/json`
+  5. Which events would you like to trigger this webhook? `Send me everything`
+  6. Add Webhook
+
 ### Defining the update branch protection rule actions
 We'll be defining our _payload_ to execute the following actions against the **GitHub REST API**.
 
